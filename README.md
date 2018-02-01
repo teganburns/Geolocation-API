@@ -12,7 +12,7 @@ The script is fairly well documented so feel free to take it apart and use in so
 - Google API key
 - [iw](https://wireless.wiki.kernel.org/en/users/Documentation/iw)
 - [sed](https://wiki.archlinux.org/index.php/Core_utilities#sed)
-- [jq]i(https://github.com/stedolan/jq)
+- [jq](https://github.com/stedolan/jq)
 
 # Additional Sources
 https://developers.google.com/maps/documentation/geolocation/intro

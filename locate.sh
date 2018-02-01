@@ -3,7 +3,7 @@
 # website: teganburns.com
 
 # Check README.md for details on how to get your API key
-api_key="AIzaFyBwM79ERbyDMs_CVWt7T9DHxwAYvUmhHlk" 
+api_key="AIzaSyBwM79ERbyDMs_CVWt7T9DHxKAYvUmBHlk"
 url="https://www.googleapis.com/geolocation/v1/geolocate?key=$api_key"
 json_file="result.json"
 jqobj=""
@@ -58,21 +58,23 @@ for i in ${!macAddr[@]}; do
     jqobj=""
     continue;
 
-    if [[ -e $json_file ]]; then
-        jq -n $( echo "'{$jqobj}'") >> $json_file
-    else
-        jq -n $( echo "'{$jqobj}'") > $json_file
-    fi
-
-
 done
 
 # Make Request
 result=$(curl -s -d @$json_file -H "Content-Type: application/json" $url)
 lat=$(echo "$result" | jq ' .location.lat')
 lng=$(echo "$result" | jq ' .location.lng')
+acc=$( echo "$result" | jq '.accuracy' )
 
-echo "https://www.google.com/maps/search/?api=1&query=$lat,$lng"
+
+# Print result or handle error
+if [[ $lat == "null" || $lng == "null" ]]; then
+	echo "Error: $result"
+else
+	echo "Estimated Accuracy: $acc meters"
+	echo "https://www.google.com/maps/search/?api=1&query=$lat,$lng"
+fi
+
 exit
 
 
